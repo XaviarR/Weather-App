@@ -1,0 +1,110 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFrameworks>net7.0-android;net7.0-ios;net7.0-maccatalyst</TargetFrameworks>
+		<TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net7.0-windows10.0.19041.0</TargetFrameworks>
+		<!-- Uncomment to also build the tizen app. You will need to install tizen by following this: https://github.com/Samsung/Tizen.NET -->
+		<!-- <TargetFrameworks>$(TargetFrameworks);net7.0-tizen</TargetFrameworks> -->
+		<OutputType>Exe</OutputType>
+		<RootNamespace>WeatherApp</RootNamespace>
+		<UseMaui>true</UseMaui>
+		<SingleProject>true</SingleProject>
+		<ImplicitUsings>enable</ImplicitUsings>
+
+		<!-- Display name -->
+		<ApplicationTitle>Weather</ApplicationTitle>
+
+		<!-- App Identifier -->
+		<ApplicationId>com.companyname.weatherapp</ApplicationId>
+		<ApplicationIdGuid>0daa25df-4bed-401f-93a2-c58dc78ff87c</ApplicationIdGuid>
+
+		<!-- Versions -->
+		<ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
+		<ApplicationVersion>1</ApplicationVersion>
+
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">11.0</SupportedOSPlatformVersion>
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst'">13.1</SupportedOSPlatformVersion>
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">21.0</SupportedOSPlatformVersion>
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</SupportedOSPlatformVersion>
+		<TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</TargetPlatformMinVersion>
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'tizen'">6.5</SupportedOSPlatformVersion>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<!-- App Icon -->
+		<MauiIcon Include="Resources\AppIcon\appicon.svg" BaseSize="128,128" Color="#FFFFFF" ForegroundScale="0.55" />
+
+		<!-- Splash Screen -->
+		<MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#512BD4" BaseSize="128,128" />
+
+		<!-- Images -->
+		<MauiImage Include="Resources\Images\*" />
+
+		<!-- Custom Fonts -->
+		<MauiFont Include="Resources\Fonts\*" />
+
+		<!-- Raw Assets (also remove the "Resources\Raw" prefix) -->
+		<MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Remove="Resources\Images\icon_01d.gif" />
+	  <None Remove="Resources\Images\icon_01n.gif" />
+	  <None Remove="Resources\Images\icon_02d.gif" />
+	  <None Remove="Resources\Images\icon_02n.gif" />
+	  <None Remove="Resources\Images\icon_03d.gif" />
+	  <None Remove="Resources\Images\icon_03n.gif" />
+	  <None Remove="Resources\Images\icon_04d.gif" />
+	  <None Remove="Resources\Images\icon_04n.gif" />
+	  <None Remove="Resources\Images\icon_09d.gif" />
+	  <None Remove="Resources\Images\icon_09n.gif" />
+	  <None Remove="Resources\Images\icon_10d.gif" />
+	  <None Remove="Resources\Images\icon_10n.gif" />
+	  <None Remove="Resources\Images\icon_11d.gif" />
+	  <None Remove="Resources\Images\icon_11n.gif" />
+	  <None Remove="Resources\Images\icon_13d.gif" />
+	  <None Remove="Resources\Images\icon_13n.gif" />
+	  <None Remove="Resources\Images\icon_50d.gif" />
+	  <None Remove="Resources\Images\icon_50n.gif" />
+	  <None Remove="Resources\Images\Wind.json" />
+	  <None Remove="Resources\Raw\anim_01d.json" />
+	  <None Remove="Resources\Raw\anim_01n.json" />
+	  <None Remove="Resources\Raw\anim_02d.json" />
+	  <None Remove="Resources\Raw\anim_02n.json" />
+	  <None Remove="Resources\Raw\anim_03d.json" />
+	  <None Remove="Resources\Raw\anim_03n.json" />
+	  <None Remove="Resources\Raw\anim_04d.json" />
+	  <None Remove="Resources\Raw\anim_04n.json" />
+	  <None Remove="Resources\Raw\anim_09d.json" />
+	  <None Remove="Resources\Raw\anim_09n.json" />
+	  <None Remove="Resources\Raw\anim_10d.json" />
+	  <None Remove="Resources\Raw\anim_10n.json" />
+	  <None Remove="Resources\Raw\anim_11d.json" />
+	  <None Remove="Resources\Raw\anim_11n.json" />
+	  <None Remove="Resources\Raw\anim_13d.json" />
+	  <None Remove="Resources\Raw\anim_13n.json" />
+	  <None Remove="Resources\Raw\anim_50d.json" />
+	  <None Remove="Resources\Raw\anim_50n.json" />
+	  <None Remove="Resources\Raw\Thermometer.json" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiImage Include="Resources\Raw\wind.json" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.1" />
+		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="7.0.0" />
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+		<PackageReference Include="SkiaSharp" Version="2.88.6" />
+		<PackageReference Include="SkiaSharp.Extended.UI.Maui" Version="2.0.0-preview.86" />
+		<PackageReference Include="UtcTimeLibrary" Version="1.0.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiXaml Update="Pages\WeatherPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	</ItemGroup>
+
+</Project>
